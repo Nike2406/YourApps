@@ -19,7 +19,7 @@ val Inter = FontFamily(
 val BundleTypography = Typography(
     button = TextStyle(
         fontFamily = Inter,
-        fontWeight = FontWeight.W400,
+        fontWeight = FontWeight.W500,
         fontSize = 14.sp,
         lineHeight = 22.sp,
         letterSpacing = 0.sp,
@@ -54,7 +54,7 @@ val BundleTypography = Typography(
         color = Black,
     ),
     h5 = TextStyle(
-        fontWeight = FontWeight.W400,
+        fontWeight = FontWeight.W500,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         color = Black,

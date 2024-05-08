@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.locus2.yourapps.ui.navigation.Screen
-import com.locus2.yourapps.ui.screen.appDetails.DownloadScreen
+import com.locus2.yourapps.ui.screen.appDetails.AppDetailsScreen
 
 fun NavHostController.navigateToAppDetails(
     navOptions: NavOptions? = null,
@@ -17,6 +17,6 @@ fun NavGraphBuilder.navigateToAppDetailsScreen(
     navHostController: NavHostController,
 ) {
     composable(route = Screen.AppDetailsScreen.route) {
-        DownloadScreen(navigateToSearching = navHostController::navigateUp)
+        AppDetailsScreen(navigateToAppsMain = navHostController::navigateUp)
     }
 }
