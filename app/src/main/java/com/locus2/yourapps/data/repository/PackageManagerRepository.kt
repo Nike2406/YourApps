@@ -29,8 +29,8 @@ class PackageManagerRepository @Inject constructor(
 
     suspend fun getApplicationDetails(packageName: String): Flow<AppDetailsModel> {
         return flow {
-            val appInfo = pm.getApplicationDetails(packageName)
             val packageInfo = pm.getPackageDetails(packageName)
+            val appInfo = pm.getApplicationDetails(packageName)
 
             emit(
                 AppDetailsModel(

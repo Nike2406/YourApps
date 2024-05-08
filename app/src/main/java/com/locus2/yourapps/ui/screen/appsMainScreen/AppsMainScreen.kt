@@ -3,11 +3,8 @@ package com.locus2.yourapps.ui.screen.appsMainScreen
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -25,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.locus2.yourapps.core.model.ScreenState
-import com.locus2.yourapps.core.utils.ui.common.ProgressLoadingIndicator
+import com.locus2.yourapps.core.utils.ui.common.AppsLoadingView
 import com.locus2.yourapps.core.utils.ui.preview.PreviewAllUiModes
 import com.locus2.yourapps.core.utils.ui.preview.PreviewSurface
 import com.locus2.yourapps.ui.screen.appsMainScreen.model.AppModel
@@ -47,7 +44,7 @@ fun AppsMainScreen(
 
     when (uiState.screenState) {
         is ScreenState.Loading -> {
-            AppsMainLoadingView()
+            AppsLoadingView()
         }
 
         else -> {
@@ -56,13 +53,6 @@ fun AppsMainScreen(
                 apps = uiState.yourApps,
             )
         }
-    }
-}
-
-@Composable
-fun AppsMainLoadingView() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        ProgressLoadingIndicator(paddingValues = PaddingValues())
     }
 }
 
@@ -91,7 +81,7 @@ fun AppElement(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .clickable(onClick = { onClick(app.name/*packageName*/) })
+                .clickable(onClick = { onClick(app.packageName) })
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {

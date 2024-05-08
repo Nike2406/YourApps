@@ -18,7 +18,7 @@ fun ApplicationInfo.getImageDescription(packageManager: PackageManager): String?
 }
 
 fun ApplicationInfo.getPackageName(): String? {
-    return this.name
+    return this.packageName
 }
 
 fun ApplicationInfo.getAppName(packageManager: PackageManager): String? {

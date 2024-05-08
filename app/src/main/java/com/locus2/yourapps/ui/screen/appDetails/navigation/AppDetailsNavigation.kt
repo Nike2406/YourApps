@@ -9,7 +9,6 @@ import androidx.navigation.navArgument
 import com.locus2.yourapps.ui.navigation.Screen
 import com.locus2.yourapps.ui.screen.appDetails.AppDetailsScreen
 import com.locus2.yourapps.ui.screen.appDetails.AppDetailsViewModel
-import com.locus2.yourapps.ui.screen.appsMainScreen.navigation.navigateToAppsMain
 
 fun NavHostController.navigateToAppDetails(
     navOptions: NavOptions? = null,
@@ -30,6 +29,6 @@ fun NavGraphBuilder.navigateToAppDetailsScreen(
             navArgument(AppDetailsViewModel.APP_PACKAGE_NAME) { type = NavType.StringType },
         )
     ) {
-        AppDetailsScreen(navigateToAppsMain = navHostController::navigateToAppsMain)
+        AppDetailsScreen()
     }
 }
