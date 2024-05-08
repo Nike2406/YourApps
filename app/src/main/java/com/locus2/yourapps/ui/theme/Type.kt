@@ -68,8 +68,8 @@ val BundleTypography = Typography(
     ),
     body1 = TextStyle(
         fontWeight = FontWeight.W400,
-        fontSize = 14.sp,
-        lineHeight = 22.sp,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
         letterSpacing = 0.sp,
         color = Black,
     ),
