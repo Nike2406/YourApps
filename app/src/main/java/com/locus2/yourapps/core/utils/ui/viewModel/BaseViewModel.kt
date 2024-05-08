@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
@@ -30,17 +31,17 @@ open class BaseViewModel : ViewModel() {
     private val coroutineContext = (supervisor + exceptionHandler)
 
     protected fun launch(block: suspend CoroutineScope.() -> Unit): Job {
-        return viewModelScope.launch(context = coroutineContext, block = block)
+        return viewModelScope.launch(context = coroutineContext + Dispatchers.IO, block = block)
     }
 
     protected fun <T> async(block: suspend CoroutineScope.() -> T): Deferred<T> {
-        return viewModelScope.async(context = coroutineContext, block = block)
+        return viewModelScope.async(context = coroutineContext + Dispatchers.IO, block = block)
     }
 
     protected fun <T> Flow<T>.launchInIO(
         scope: CoroutineScope = viewModelScope,
     ): Job {
-        return scope.launch(context = coroutineContext) {
+        return scope.launch(context = coroutineContext + Dispatchers.IO) {
             collectLatest {}
         }
     }
