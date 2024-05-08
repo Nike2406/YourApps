@@ -15,19 +15,19 @@ import com.locus2.yourapps.core.utils.ui.preview.PreviewAllUiModes
 import com.locus2.yourapps.core.utils.ui.preview.PreviewSurface
 
 @Composable
-fun SearchScreen(
-    navigateToDownloads: () -> Unit,
+fun AppsMainScreen(
+    navigateToAppDetails: () -> Unit,
 ) {
     val viewModel = hiltViewModel<AppsMainViewModel>()
 
-    SearchView(
-        navigateToDownloads = navigateToDownloads,
+    AppsMainView(
+        navigateToAppDetails = navigateToAppDetails,
     )
 }
 
 @Composable
-fun SearchView(
-    navigateToDownloads: () -> Unit,
+fun AppsMainView(
+    navigateToAppDetails: () -> Unit,
 ) {
     Column {
         Box(
@@ -35,9 +35,9 @@ fun SearchView(
                 .size(40.dp)
                 .background(Color.LightGray)
         )
-        Text(text = "SearchScreen", color = Color.Black)
+        Text(text = "AppsMainScreen", color = Color.Black)
         Button(onClick = {  }) {
-            Text(text = "Search")
+            Text(text = "AppsMain")
         }
     }
 }
@@ -45,10 +45,10 @@ fun SearchView(
 
 @PreviewAllUiModes
 @Composable
-private fun SearchViewPreview() {
+private fun AppsMainViewPreview() {
     PreviewSurface {
-        SearchView(
-            navigateToDownloads = {},
+        AppsMainView(
+            navigateToAppDetails = {},
         )
     }
 }

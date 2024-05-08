@@ -15,15 +15,15 @@ import com.locus2.yourapps.core.utils.ui.preview.PreviewAllUiModes
 import com.locus2.yourapps.core.utils.ui.preview.PreviewSurface
 
 @Composable
-fun DownloadScreen(
-    navigateToSearching: () -> Unit,
+fun AppDetailsScreen(
+    navigateToAppsMain: () -> Unit,
 ) {
-    DownloadView(navigateToSearching)
+    AppDetailsView(navigateToAppsMain)
 }
 
 @Composable
-fun DownloadView(
-    navigateToSearching: () -> Unit,
+fun AppDetailsView(
+    navigateToAppsMain: () -> Unit,
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -33,15 +33,15 @@ fun DownloadView(
                 .size(40.dp)
                 .background(Color.LightGray)
         )
-        Text(text = "DownloadScreen", color = Color.Black)
+        Text(text = "AppDetailsScreen", color = Color.Black)
     }
 }
 
 
 @PreviewAllUiModes
 @Composable
-private fun DownloadViewPreview() {
+private fun AppsMainViewPreview() {
     PreviewSurface {
-        DownloadView{}
+        AppDetailsView{}
     }
 }

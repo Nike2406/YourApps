@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.YourApps.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable-mdpi/img_your_apps_logo.png</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/img_your_apps_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.YourApps</item>
     </style>
 </resources>
