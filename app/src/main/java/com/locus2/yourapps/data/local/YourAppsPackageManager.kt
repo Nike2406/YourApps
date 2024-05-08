@@ -2,6 +2,7 @@ package com.locus2.yourapps.data.local
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -23,5 +24,10 @@ class YourAppsPackageManager @Inject constructor(
 
     fun getApplicationDetails(packageName: String): ApplicationInfo {
         return packageManager.getApplicationInfo(packageName, 0)
+    }
+
+    // TODO Deprecated
+    fun getPackageDetails(packageName: String): PackageInfo {
+        return packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
     }
 }

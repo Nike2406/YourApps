@@ -18,6 +18,8 @@ fun NavGraphBuilder.navigateToAppsMainScreen(
     navHostController: NavHostController,
 ) {
     composable(route = Screen.AppsMainScreen.route) {
-        AppsMainScreen(navigateToAppDetails = navHostController::navigateToAppDetails)
+        AppsMainScreen(navigateToAppDetails = { packageName ->
+            navHostController.navigateToAppDetails(packageName = packageName)
+        })
     }
 }

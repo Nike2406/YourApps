@@ -2,11 +2,13 @@ package com.locus2.yourapps.ui.screen.appsMainScreen
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,7 +32,7 @@ import com.locus2.yourapps.ui.screen.appsMainScreen.model.AppModel
 
 @Composable
 fun AppsMainScreen(
-    navigateToAppDetails: () -> Unit,
+    navigateToAppDetails: (String) -> Unit,
 ) {
     val viewModel = hiltViewModel<AppsMainViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -66,12 +68,15 @@ fun AppsMainLoadingView() {
 
 @Composable
 fun AppsMainView(
-    navigateToAppDetails: () -> Unit,
+    navigateToAppDetails: (String) -> Unit,
     apps: List<AppModel>,
 ) {
     LazyColumn {
         items(items = apps,) { app ->
-            AppElement(app = app)
+            AppElement(
+                app = app,
+                onClick = navigateToAppDetails,
+            )
         }
     }
 }
@@ -80,10 +85,14 @@ fun AppsMainView(
 fun AppElement(
     modifier: Modifier = Modifier,
     app: AppModel,
+    onClick: (String) -> Unit,
 ) {
-    if (app.packageName != null) {
+    if (app.name != null && app.packageName != null) {
         Row(
-            modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable(onClick = { onClick(app.name/*packageName*/) })
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
@@ -91,7 +100,7 @@ fun AppElement(
                 contentDescription = app.imageDescription,
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = app.packageName, style = MaterialTheme.typography.body1)
+            Text(text = app.name, style = MaterialTheme.typography.body1)
         }
     }
 }
