@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
@@ -65,7 +66,8 @@ fun AppDetailsView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(MaterialTheme.colors.background)
+            .padding(16.dp),
     ) {
         Image(
             modifier = Modifier
@@ -74,38 +76,29 @@ fun AppDetailsView(
             bitmap = appDetailsModel.app.bitmap,
             contentDescription = appDetailsModel.app.imageDescription,
         )
-        CommonSpacer()
         appDetailsModel.app.name?.let { name ->
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Application name", style = MaterialTheme.typography.body2)
-            Text(text = name, style = MaterialTheme.typography.body1)
+            CommonBlock(title = "Application name", description = name)
         }
-        CommonSpacer()
         appDetailsModel.version.let { version ->
-            Text(text = "Application version", style = MaterialTheme.typography.body2)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = version, style = MaterialTheme.typography.body1)
+            CommonBlock(title = "Application version", description = version)
         }
-        CommonSpacer()
         appDetailsModel.app.packageName?.let { packageName ->
             if (packageName != appDetailsModel.app.name) {
-                Text(text = "Package name", style = MaterialTheme.typography.body2)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(text = packageName, style = MaterialTheme.typography.body1)
+                CommonBlock(title = "Package name", description = packageName)
             }
         }
-        CommonSpacer()
         appDetailsModel.apkHashSum.let { apkHashSum ->
-            Text(text = "Apk hash sum", style = MaterialTheme.typography.body2)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = apkHashSum, style = MaterialTheme.typography.body1)
+            CommonBlock(title = "Apk hash sum", description = apkHashSum)
         }
     }
 }
 
 @Composable
-fun CommonSpacer() {
+fun CommonBlock(title: String, description: String) {
     Spacer(modifier = Modifier.height(16.dp))
+    Text(text = title, style = MaterialTheme.typography.body2)
+    Spacer(modifier = Modifier.width(8.dp))
+    Text(text = description, style = MaterialTheme.typography.body1)
 }
 
 
