@@ -28,20 +28,20 @@ open class BaseViewModel : ViewModel() {
         e.printStackTrace()
     }
 
-    private val coroutineContext = (supervisor + exceptionHandler)
+    private val coroutineContext = (supervisor + exceptionHandler + Dispatchers.IO)
 
     protected fun launch(block: suspend CoroutineScope.() -> Unit): Job {
-        return viewModelScope.launch(context = coroutineContext + Dispatchers.IO, block = block)
+        return viewModelScope.launch(context = coroutineContext, block = block)
     }
 
     protected fun <T> async(block: suspend CoroutineScope.() -> T): Deferred<T> {
-        return viewModelScope.async(context = coroutineContext + Dispatchers.IO, block = block)
+        return viewModelScope.async(context = coroutineContext, block = block)
     }
 
     protected fun <T> Flow<T>.launchInIO(
         scope: CoroutineScope = viewModelScope,
     ): Job {
-        return scope.launch(context = coroutineContext + Dispatchers.IO) {
+        return scope.launch(context = coroutineContext) {
             collectLatest {}
         }
     }

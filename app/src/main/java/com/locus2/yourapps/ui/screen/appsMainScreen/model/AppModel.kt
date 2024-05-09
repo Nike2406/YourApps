@@ -6,4 +6,5 @@ data class AppModel(
     val bitmap: ImageBitmap,
     val imageDescription: String?,
     val packageName: String?,
+    val name: String?,
 )
