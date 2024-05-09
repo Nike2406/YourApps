@@ -4,11 +4,10 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.core.graphics.drawable.toBitmap
 
 fun ApplicationInfo.getImageBitmap(packageManager: PackageManager, size: Int): ImageBitmap {
     return this.loadIcon(packageManager)
-        .toBitmap(width = size, height = size)
+        .toBitmap(size = size)
         .asImageBitmap()
 }
 
