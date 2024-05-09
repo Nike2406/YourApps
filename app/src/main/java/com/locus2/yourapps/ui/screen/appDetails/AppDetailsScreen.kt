@@ -1,15 +1,19 @@
 package com.locus2.yourapps.ui.screen.appDetails
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.locus2.yourapps.core.model.ScreenState
@@ -29,12 +34,17 @@ import com.locus2.yourapps.core.utils.ui.preview.PreviewAllUiModes
 import com.locus2.yourapps.core.utils.ui.preview.PreviewSurface
 import com.locus2.yourapps.ui.screen.appDetails.model.AppDetailsModel
 import com.locus2.yourapps.ui.screen.appsMainScreen.model.AppModel
+import timber.log.Timber
 
 @Composable
 fun AppDetailsScreen() {
     val viewModel = hiltViewModel<AppDetailsViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    val intent = Intent(Intent.ACTION_MAIN).also {
+        it.`package` = uiState.appDetails?.app?.packageName
+    }
 
     LaunchedEffect(key1 = uiState.screenState) {
         if (uiState.errorMessage != null) {
@@ -50,6 +60,13 @@ fun AppDetailsScreen() {
         uiState.screenState == ScreenState.Success && details != null -> {
             AppDetailsView(
                 appDetailsModel = details,
+                onClick = {
+                    try {
+                        startActivity(context, intent, null)
+                    } catch (e: ActivityNotFoundException){
+                        Timber.e("AppDetailsScreen: " + e.message)
+                    }
+                }
             )
         }
 
@@ -62,6 +79,7 @@ fun AppDetailsScreen() {
 @Composable
 fun AppDetailsView(
     appDetailsModel: AppDetailsModel,
+    onClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -90,6 +108,17 @@ fun AppDetailsView(
         appDetailsModel.apkHashSum.let { apkHashSum ->
             CommonBlock(title = "Apk hash sum", description = apkHashSum)
         }
+
+        Button(
+            modifier = Modifier.fillMaxWidth()
+                .padding(top = 16.dp),
+            onClick = onClick,
+        ) {
+            Text(
+                text = "Launch",
+                color = MaterialTheme.colors.background,
+            )
+        }
     }
 }
 
@@ -117,6 +146,7 @@ private fun AppsMainViewPreview() {
                 version = "1.0",
                 apkHashSum = "fheiwuhf21i3h4324"
             ),
+            onClick = {},
         )
     }
 }
