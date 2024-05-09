@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class Incription @Inject constructor() {
 
-    val md: MessageDigest = MessageDigest.getInstance("SHA-1");
+    private val md: MessageDigest = MessageDigest.getInstance("SHA-1")
 
     fun generateHash(signatures: Array<Signature>): String {
         return try {

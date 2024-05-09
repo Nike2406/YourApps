@@ -97,17 +97,13 @@ fun AppDetailsView(
         appDetailsModel.app.name?.let { name ->
             CommonBlock(title = "Application name", description = name)
         }
-        appDetailsModel.version.let { version ->
-            CommonBlock(title = "Application version", description = version)
-        }
+        CommonBlock(title = "Application version", description = appDetailsModel.version)
         appDetailsModel.app.packageName?.let { packageName ->
             if (packageName != appDetailsModel.app.name) {
                 CommonBlock(title = "Package name", description = packageName)
             }
         }
-        appDetailsModel.apkHashSum.let { apkHashSum ->
-            CommonBlock(title = "Apk hash sum", description = apkHashSum)
-        }
+        CommonBlock(title = "Apk hash sum", description = appDetailsModel.apkHashSum)
 
         Button(
             modifier = Modifier.fillMaxWidth()
@@ -123,7 +119,7 @@ fun AppDetailsView(
 }
 
 @Composable
-fun CommonBlock(title: String, description: String) {
+private fun CommonBlock(title: String, description: String) {
     Spacer(modifier = Modifier.height(16.dp))
     Text(text = title, style = MaterialTheme.typography.body2)
     Spacer(modifier = Modifier.width(8.dp))

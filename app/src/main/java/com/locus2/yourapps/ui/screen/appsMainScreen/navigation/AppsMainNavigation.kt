@@ -1,5 +1,6 @@
 package com.locus2.yourapps.ui.screen.appsMainScreen.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -16,10 +17,14 @@ fun NavHostController.navigateToAppsMain(
 
 fun NavGraphBuilder.navigateToAppsMainScreen(
     navHostController: NavHostController,
+    paddingValues: PaddingValues,
 ) {
     composable(route = Screen.AppsMainScreen.route) {
-        AppsMainScreen(navigateToAppDetails = { packageName ->
-            navHostController.navigateToAppDetails(packageName = packageName)
-        })
+        AppsMainScreen(
+            paddingValues = paddingValues,
+            navigateToAppDetails = { packageName ->
+                navHostController.navigateToAppDetails(packageName = packageName)
+            },
+        )
     }
 }

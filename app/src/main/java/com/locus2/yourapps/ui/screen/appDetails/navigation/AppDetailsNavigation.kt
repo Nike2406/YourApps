@@ -20,9 +20,7 @@ fun NavHostController.navigateToAppDetails(
     )
 }
 
-fun NavGraphBuilder.navigateToAppDetailsScreen(
-    navHostController: NavHostController,
-) {
+fun NavGraphBuilder.navigateToAppDetailsScreen() {
     composable(
         route = Screen.AppDetailsScreen.route,
         arguments = listOf(

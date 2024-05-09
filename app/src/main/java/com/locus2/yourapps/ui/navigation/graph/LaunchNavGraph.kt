@@ -19,10 +19,9 @@ fun LaunchNavGraph(
     ) {
         navigateToAppsMainScreen(
             navHostController = navHostController,
+            paddingValues = paddingValues,
         )
 
-        navigateToAppDetailsScreen(
-            navHostController = navHostController,
-        )
+        navigateToAppDetailsScreen()
     }
 }
