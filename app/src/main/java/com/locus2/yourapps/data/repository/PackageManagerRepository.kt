@@ -11,11 +11,12 @@ import com.locus2.yourapps.ui.screen.appDetails.model.AppDetailsModel
 import com.locus2.yourapps.ui.screen.appsMainScreen.model.AppModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.File
 import javax.inject.Inject
 
 class PackageManagerRepository @Inject constructor(
     private val pm: YourAppsPackageManager,
-    private val incription: HashSum,
+    private val hashSum: HashSum,
 ) {
     suspend fun getApplications(): Flow<List<AppModel>> {
         return flow {
@@ -36,8 +37,7 @@ class PackageManagerRepository @Inject constructor(
                 AppDetailsModel(
                     app = getAppModel(appInfo),
                     version = packageInfo.versionName,
-                    apkHashSum = // packageInfo.installLocation
-                    incription.calculate(packageInfo.signatures)
+                    apkHashSum = hashSum.calculate(file = File(appInfo.sourceDir))
                 )
             )
         }

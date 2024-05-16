@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -63,7 +64,7 @@ fun AppDetailsScreen() {
                 onClick = {
                     try {
                         startActivity(context, intent, null)
-                    } catch (e: ActivityNotFoundException){
+                    } catch (e: ActivityNotFoundException) {
                         Timber.e("AppDetailsScreen: " + e.message)
                     }
                 }
@@ -106,7 +107,8 @@ fun AppDetailsView(
         CommonBlock(title = "Apk hash sum", description = appDetailsModel.apkHashSum)
 
         Button(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(top = 16.dp),
             onClick = onClick,
         ) {
@@ -123,7 +125,12 @@ private fun CommonBlock(title: String, description: String) {
     Spacer(modifier = Modifier.height(16.dp))
     Text(text = title, style = MaterialTheme.typography.body2)
     Spacer(modifier = Modifier.width(8.dp))
-    Text(text = description, style = MaterialTheme.typography.body1)
+    Text(
+        text = description,
+        style = MaterialTheme.typography.body1,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
 }
 
 

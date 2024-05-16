@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -24,13 +23,10 @@ class YourAppsPackageManager @Inject constructor(
     }
 
     fun getApplicationDetails(packageName: String): ApplicationInfo {
-//        return packageManager.getApplicationInfo(packageName, 0)
-
-        val pa = packageManager.getApplicationInfo(packageName, PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY)
-//        Log.e("TAG", "getPackageDetails: $pa", )
-        Log.e("TAG", "sourceDir: ${pa.sourceDir}")
-//        pa.sourceDir
-        return pa
+        return packageManager.getApplicationInfo(
+            packageName,
+            PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY,
+        )
     }
 
     // TODO Deprecated

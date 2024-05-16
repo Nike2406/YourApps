@@ -1,9 +1,8 @@
 package com.locus2.yourapps.core.utils.hashSum
 
-import android.content.pm.Signature
-import android.util.Base64
-import com.locus2.yourapps.core.utils.constant.EMPTY_STRING
 import timber.log.Timber
+import java.io.File
+import java.io.FileInputStream
 import java.security.MessageDigest
 import javax.inject.Inject
 
@@ -11,19 +10,31 @@ class HashSum @Inject constructor() {
 
     private val md: MessageDigest = MessageDigest.getInstance("SHA-1")
 
-    fun calculate(signatures: Array<Signature>): String {
+    fun calculate(file: File): String {
         return try {
-            val hashes = mutableListOf<String>()
+            val inputStream = FileInputStream(file)
+            val buffer = ByteArray(8192)
+            var bytesRead = inputStream.read(buffer)
 
-            for (s in signatures) {
-                md.update(s.toByteArray())
-                val en = Base64.encodeToString(md.digest(), Base64.DEFAULT)
-                hashes.add(en)
+            while (bytesRead != -1) {
+                md.update(buffer, 0, bytesRead)
+                bytesRead = inputStream.read(buffer)
             }
-            hashes.joinToString(EMPTY_STRING)
+            inputStream.close()
+
+            val hashBytes = md.digest()
+            val hexString = StringBuilder(hashBytes.size * 2)
+            for (byte in hashBytes) {
+                val hex = Integer.toHexString(0xff and byte.toInt())
+                if (hex.length == 1) {
+                    hexString.append('0')
+                }
+                hexString.append(hex)
+            }
+            hexString.toString()
         } catch (e: Exception) {
             Timber.e(e.message)
-            throw RuntimeException()
+            throw RuntimeException("Error calculating hash sum")
         }
     }
 }
