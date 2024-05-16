@@ -23,7 +23,10 @@ class YourAppsPackageManager @Inject constructor(
     }
 
     fun getApplicationDetails(packageName: String): ApplicationInfo {
-        return packageManager.getApplicationInfo(packageName, 0)
+        return packageManager.getApplicationInfo(
+            packageName,
+            PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY,
+        )
     }
 
     // TODO Deprecated

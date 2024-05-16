@@ -5,6 +5,8 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.drawable.Drawable
 
+private const val BITMAP_MAX_SIZE = 512
+
 fun Drawable.toBitmap(size: Int): Bitmap {
     val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
@@ -12,9 +14,8 @@ fun Drawable.toBitmap(size: Int): Bitmap {
     draw(canvas)
 
     // Resize the bitmap more aggressively if it's too large
-    val maxSize = 512 // Maximum size for the bitmap
-    if (size > maxSize || size > maxSize) {
-        val scale = maxSize.toFloat() / Math.max(size, size)
+    if (size > BITMAP_MAX_SIZE) {
+        val scale = BITMAP_MAX_SIZE.toFloat() / size.coerceAtLeast(size)
         val matrix = Matrix()
         matrix.setScale(scale, scale)
         return Bitmap.createBitmap(bitmap, 0, 0, size, size, matrix, true)
