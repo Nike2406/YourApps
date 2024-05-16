@@ -1,4 +1,4 @@
-package com.locus2.yourapps.core.utils.incription
+package com.locus2.yourapps.core.utils.hashSum
 
 import android.content.pm.Signature
 import android.util.Base64
@@ -7,11 +7,11 @@ import timber.log.Timber
 import java.security.MessageDigest
 import javax.inject.Inject
 
-class Incription @Inject constructor() {
+class HashSum @Inject constructor() {
 
     private val md: MessageDigest = MessageDigest.getInstance("SHA-1")
 
-    fun generateHash(signatures: Array<Signature>): String {
+    fun calculate(signatures: Array<Signature>): String {
         return try {
             val hashes = mutableListOf<String>()
 

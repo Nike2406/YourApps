@@ -1,7 +1,7 @@
 package com.locus2.yourapps.data.repository
 
 import android.content.pm.ApplicationInfo
-import com.locus2.yourapps.core.utils.incription.Incription
+import com.locus2.yourapps.core.utils.hashSum.HashSum
 import com.locus2.yourapps.core.utils.ui.getAppName
 import com.locus2.yourapps.core.utils.ui.getImageBitmap
 import com.locus2.yourapps.core.utils.ui.getImageDescription
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class PackageManagerRepository @Inject constructor(
     private val pm: YourAppsPackageManager,
-    private val incription: Incription,
+    private val incription: HashSum,
 ) {
     suspend fun getApplications(): Flow<List<AppModel>> {
         return flow {
@@ -36,7 +36,8 @@ class PackageManagerRepository @Inject constructor(
                 AppDetailsModel(
                     app = getAppModel(appInfo),
                     version = packageInfo.versionName,
-                    apkHashSum = incription.generateHash(packageInfo.signatures)
+                    apkHashSum = // packageInfo.installLocation
+                    incription.calculate(packageInfo.signatures)
                 )
             )
         }
